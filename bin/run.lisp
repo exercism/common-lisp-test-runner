@@ -77,8 +77,3 @@
          fs)))))
 
 (test-runner)
-
-;; Uncomment below if you want to have results.json printed
-(fresh-line)
-(uiop:run-program "cat /tmp/results.json" :output *standard-output*)
-(fresh-line)
