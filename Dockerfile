@@ -11,9 +11,5 @@ RUN sbcl --load quicklisp.lisp \
          --eval "(ql:quickload '(:fiveam :dissect :st-json))" --quit
 # Copy over the test runner
 COPY bin/ bin/
-# Copy over an example project to test
-COPY test/ test/
 # Set test runner as the ENTRYPOINT
 ENTRYPOINT ["/opt/test-runner/bin/run.sh"]
-# Some default arguments for testing
-CMD ["basics", "/opt/test-runner/test/basics", "/tmp"]
