@@ -1,0 +1,216 @@
+﻿{
+  "status": "fail",
+  "message": [],
+  "tests": [
+    {
+      "name": "Lenny's favorite food is a symbol",
+      "status": "pass",
+      "message": null,
+      "output": ""
+    },
+    {
+      "name": "Lenny's favorite food is a symbol",
+      "status": "pass",
+      "message": null,
+      "output": ""
+    },
+    {
+      "name": "Lenny's secret keyword is a keyword",
+      "status": "fail",
+      "message": "(KEYWORDP (LENNYS-SECRET-KEYWORD)) did not return a true value",
+      "output": "Hello from the other side"
+    },
+    {
+      "name": "Lenny can recognise atoms",
+      "status": "pass",
+      "message": null,
+      "output": ""
+    },
+    {
+      "name": "Lenny can recognise atoms",
+      "status": "pass",
+      "message": null,
+      "output": ""
+    },
+    {
+      "name": "Lenny can recognise atoms",
+      "status": "pass",
+      "message": null,
+      "output": ""
+    },
+    {
+      "name": "Lenny can recognise atoms",
+      "status": "pass",
+      "message": null,
+      "output": ""
+    },
+    {
+      "name": "Lenny can recognise atoms",
+      "status": "pass",
+      "message": null,
+      "output": ""
+    },
+    {
+      "name": "Lenny can recognise atoms",
+      "status": "pass",
+      "message": null,
+      "output": ""
+    },
+    {
+      "name": "Lenny can recognise atoms",
+      "status": "pass",
+      "message": null,
+      "output": ""
+    },
+    {
+      "name": "Lenny can recognise atoms",
+      "status": "pass",
+      "message": null,
+      "output": ""
+    },
+    {
+      "name": "Lenny can recognise atoms",
+      "status": "pass",
+      "message": null,
+      "output": ""
+    },
+    {
+      "name": "Lenny can recognise atoms",
+      "status": "pass",
+      "message": null,
+      "output": ""
+    },
+    {
+      "name": "Lenny can recognise atoms",
+      "status": "pass",
+      "message": null,
+      "output": ""
+    },
+    {
+      "name": "Lenny can recognise atoms",
+      "status": "pass",
+      "message": null,
+      "output": ""
+    },
+    {
+      "name": "Lenny can recognise atoms",
+      "status": "pass",
+      "message": null,
+      "output": ""
+    },
+    {
+      "name": "Lenny can recognise conses",
+      "status": "pass",
+      "message": null,
+      "output": ""
+    },
+    {
+      "name": "Lenny can recognise conses",
+      "status": "pass",
+      "message": null,
+      "output": ""
+    },
+    {
+      "name": "Lenny can recognise conses",
+      "status": "pass",
+      "message": null,
+      "output": ""
+    },
+    {
+      "name": "Lenny can recognise conses",
+      "status": "pass",
+      "message": null,
+      "output": ""
+    },
+    {
+      "name": "Lenny can recognise conses",
+      "status": "pass",
+      "message": null,
+      "output": ""
+    },
+    {
+      "name": "Lenny can recognise conses",
+      "status": "pass",
+      "message": null,
+      "output": ""
+    },
+    {
+      "name": "Lenny can recognise conses",
+      "status": "pass",
+      "message": null,
+      "output": ""
+    },
+    {
+      "name": "Lenny can recognise conses",
+      "status": "pass",
+      "message": null,
+      "output": ""
+    },
+    {
+      "name": "Lenny can recognise conses",
+      "status": "pass",
+      "message": null,
+      "output": ""
+    },
+    {
+      "name": "Lenny can recognise conses",
+      "status": "pass",
+      "message": null,
+      "output": ""
+    },
+    {
+      "name": "Lenny can recognise conses",
+      "status": "pass",
+      "message": null,
+      "output": ""
+    },
+    {
+      "name": "Lenny can recognise conses",
+      "status": "pass",
+      "message": null,
+      "output": ""
+    },
+    {
+      "name": "Lenny can get the first item of a cons",
+      "status": "pass",
+      "message": null,
+      "output": ""
+    },
+    {
+      "name": "Lenny can get the first item of a cons",
+      "status": "pass",
+      "message": null,
+      "output": ""
+    },
+    {
+      "name": "Lenny can get the rest of a cons",
+      "status": "pass",
+      "message": null,
+      "output": "Well, here is the cons: (A)"
+    },
+    {
+      "name": "Lenny can get the rest of a cons",
+      "status": "pass",
+      "message": null,
+      "output": "Well, here is the cons: (A)"
+    },
+    {
+      "name": "Lenny can get the rest of a cons",
+      "status": "pass",
+      "message": null,
+      "output": "Well, here is the cons: (A B)"
+    },
+    {
+      "name": "Lenny can get the rest of a cons",
+      "status": "pass",
+      "message": null,
+      "output": "Well, here is the cons: (A B)"
+    },
+    {
+      "name": "Lenny can get the rest of a cons",
+      "status": "pass",
+      "message": null,
+      "output": "Well, here is the cons: (A . B)"
+    }
+  ]
+}

@@ -12,7 +12,7 @@
 ;; Evaluates to some keyword
 (defun lennys-secret-keyword ()
   (princ "Hello from the other side")
-  'cool)
+  :cool)
 
 ;; Evaluates to T if THING is an atom, NIL otherwise
 (defun is-an-atom-p (thing)
@@ -28,4 +28,5 @@
 
 ;; Evaluates to the 'rest' of the CONS
 (defun rest-of-it (cons)
+  (format t "Well, here is the cons: ~A" cons)
   (cdr cons))
