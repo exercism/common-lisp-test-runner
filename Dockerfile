@@ -14,6 +14,6 @@ COPY bin/ bin/
 # Copy over an example project to test
 COPY test/ test/
 # Set test runner as the ENTRYPOINT
-ENTRYPOINT ["/opt/test-runner/bin/run.sh"]
+ENTRYPOINT ["sh", "bin/run.sh"]
 # Some default arguments for testing
 CMD ["basics", "/opt/test-runner/test/basics", "/tmp"]

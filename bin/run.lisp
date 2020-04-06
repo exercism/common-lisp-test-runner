@@ -1,4 +1,3 @@
-#!/usr/local/bin/sbcl --script
 ;;;; Exercism Common Lisp Test Runner
 
 ;;; Setup Quicklisp & FiveAM
