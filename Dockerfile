@@ -12,4 +12,4 @@ RUN sbcl --load quicklisp.lisp \
 # Copy over the test runner
 COPY bin/ bin/
 # Set test runner as the ENTRYPOINT
-ENTRYPOINT ["/opt/test-runner/bin/run.sh"]
+ENTRYPOINT ["sh", "bin/run.sh"]
