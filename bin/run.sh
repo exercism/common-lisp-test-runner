@@ -1,3 +1,3 @@
 #!/bin/sh
 
-sbcl --script bin/run.lisp $1 $2 $3
+./bin/test-runner $1 $2 $3

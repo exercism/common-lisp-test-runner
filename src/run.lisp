@@ -1,8 +1,8 @@
 ;;;; Exercism Common Lisp Test Runner
 
-;;; Setup Quicklisp & FiveAM
-(load "/root/quicklisp/setup.lisp")
-(ql:quickload '(:fiveam :dissect :st-json))
+;; ;;; Setup Quicklisp & FiveAM
+;; (load "/root/quicklisp/setup.lisp")
+;; (ql:quickload '(:fiveam :dissect :st-json))
 
 ;;; Set some parameters
 (defvar *max-output-chars* 500)
@@ -70,9 +70,13 @@
   (destructuring-bind (slug src-path out-path) (uiop:command-line-arguments)
     (let ((results-file (merge-pathnames (truename out-path) *results-file*)))
       (with-open-file (fs results-file :direction :output :if-exists :supersede)
-        (st-json:write-json 
+        (st-json:write-json
          (handler-case (generate-report (get-test-results slug src-path out-path))
            (error (c) (generate-report nil c)))
-         fs)))))
+         fs))))
+  (format t "~%")
+  (values))
 
-(test-runner)
+;; (test-runner)
+ 
+ 
