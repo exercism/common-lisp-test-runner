@@ -10,6 +10,6 @@ RUN sbcl --load quicklisp.lisp \
          --eval '(quicklisp-quickstart:install)' \
          --eval "(ql:quickload '(:fiveam :dissect :st-json))" --quit
 # Copy over the test runner
-COPY bin/ bin/
+COPY bin/run.lisp /bin/run.sh bin/
 # Set test runner as the ENTRYPOINT
 ENTRYPOINT ["sh", "bin/run.sh"]
