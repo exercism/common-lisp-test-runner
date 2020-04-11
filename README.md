@@ -14,6 +14,8 @@ The script that the docker image runs takes three arguments:
 
 There is a shell script `./bin/run-local.sh` which will allow one to run the docker image on tests on one's local machine. It creates appropriate mount points so the test-runner can access all needed files.
 
+Note: this script mush be run from the root directory of the repository.
+
 For example:
 
 ```
