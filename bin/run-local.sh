@@ -7,6 +7,8 @@ local_output=`realpath $3`
 image=`docker build -q .`
 
 docker run \
+       --network none \
+       --read-only \
        --mount type=bind,source=${local_input},target=/input \
        --mount type=bind,source=${local_output},target=/output \
        --rm \
