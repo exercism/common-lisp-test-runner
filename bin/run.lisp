@@ -2,7 +2,7 @@
 
 ;;; Setup Quicklisp & FiveAM
 (load "/root/quicklisp/setup.lisp")
-(ql:quickload '(:fiveam :dissect :st-json))
+(ql:quickload '(:fiveam :st-json))
 
 ;;; Set some parameters
 (defvar *max-output-chars* 500)
@@ -25,7 +25,7 @@
 (defmethod process-test-result ((result 5am::unexpected-test-failure))
   (st-json:jso "name" (get-test-description result)
                "status" "error"
-               "message" (dissect:present (5am::actual-condition result) nil)
+               "message" (princ-to-string (5am::actual-condition result))
                "output" :null))
 
 (defmethod process-test-result ((result 5am::test-failure))
@@ -62,7 +62,7 @@
 
 (defun generate-report (results &optional error)
   (st-json:jso "status" (results-status results)
-               "message" (unless results (dissect:present error nil))
+               "message" (unless results (princ-to-string error))
                "tests" (remove nil (mapcar #'process-test-result results))))
 
 ;;; Invoke the test-runner
