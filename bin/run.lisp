@@ -25,7 +25,7 @@
 (defmethod process-test-result ((result 5am::unexpected-test-failure))
   (st-json:jso "name" (get-test-description result)
                "status" "error"
-               "message" (format nil "~a" (5am::actual-condition result))
+               "message" (princ-to-string (5am::actual-condition result))
                "output" :null))
 
 (defmethod process-test-result ((result 5am::test-failure))
@@ -62,7 +62,7 @@
 
 (defun generate-report (results &optional error)
   (st-json:jso "status" (results-status results)
-               "message" (unless results (format nil "~a" error))
+               "message" (unless results (princ-to-string error))
                "tests" (remove nil (mapcar #'process-test-result results))))
 
 ;;; Invoke the test-runner
