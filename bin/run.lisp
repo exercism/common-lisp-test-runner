@@ -9,11 +9,33 @@
 (defvar *results-file* "results.json")
 
 ;;; Load and run tests
-(defun get-test-results (slug src-path out-path)
+(defun get-test-results (slug src-path)
   (let ((test-slug (format nil "~A-test" slug))
         (*default-pathname-defaults* (truename src-path)))
     (load test-slug)
-    (uiop:symbol-call (string-upcase test-slug) :run-tests nil)))
+    (eval `(in-package ,(string-upcase test-slug)))
+    (values (uiop:symbol-call (string-upcase test-slug) :run-tests nil)
+            (list-all-tests test-slug) )))
+
+;; Maybe put these in a hashmap (test-name -> test-expr)
+(defun list-all-tests (src-slug)
+  (let ((src-file (format nil "~A.lisp" src-slug))
+        (test-list '()))
+    (with-open-file (fs src-file :direction :input)
+      (handler-case (loop (push (read fs) test-list))
+        (end-of-file ()
+          (remove-if-not (lambda (expr) (eq 'test (car expr)))
+                         (reverse test-list)))))))
+
+;; (defun list-all-tests (src-slug)
+;;   (let ((src-file (format nil "~A.lisp" src-slug))
+;;         (test-list '()))
+;;     (with-open-file (fs src-file :direction :input)
+;;       (handler-case (loop (push (read fs) test-list))
+;;         (end-of-file ()
+;;           (mapcar (lambda (test-expr) (find-if #'listp test-expr))
+;;                   (remove-if-not (lambda (expr) (eq 'test (car expr)))
+;;                                  (reverse test-list))))))))
 
 ;;; Methods for processing different test results
 (defmethod process-test-result ((result 5am::test-passed))
@@ -48,11 +70,21 @@
     (with-output-to-string (*standard-output*)
       (eval (5am::test-expr test-result)))))
 
+;; (defun get-test-components (test-result)
+;;   (let ((test-expr (5am::test-expr test-result)))
+;;     (case (car test-expr)
+;;       ())))
+
 (defun truncate-output (output)
   (if (> (length output) *max-output-chars*)
       (format nil "~A...~%Output was truncated. Please limit to ~A characters."
               (subseq output 0 *max-output-chars*) *max-output-chars*)
       output))
+
+(defun expand-test-expression (expr)
+  (if (listp expr)
+      (macroexpand (mapcar #'expand-test-expression expr))
+      expr))
 
 ;;; Generate final report
 (defun results-status (results)
@@ -71,7 +103,7 @@
     (let ((results-file (merge-pathnames (truename out-path) *results-file*)))
       (with-open-file (fs results-file :direction :output :if-exists :supersede)
         (st-json:write-json 
-         (handler-case (generate-report (get-test-results slug src-path out-path))
+         (handler-case (generate-report (get-test-results slug src-path))
            (error (c) (generate-report nil c)))
          fs)))))
 
