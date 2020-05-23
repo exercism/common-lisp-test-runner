@@ -30,7 +30,7 @@
 (defmethod test-components ((type (eql 'is)) body)
   (destructuring-bind (expected expr) (cdar body)
     (st-json:jso "cmd" (print-expression expr)
-                 "expected" expected)))
+                 "expected" (write-to-string expected))))
 
 (defmethod test-components ((type (eql 'is-true)) body)
   (st-json:jso "cmd" (print-expression (car body))
