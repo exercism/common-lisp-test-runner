@@ -18,7 +18,7 @@
       (handler-case (loop (push (read fs) test-list))
         (end-of-file ()
           (apply #'concatenate 'list
-                 (mapcar (lambda (test-expr) (remove-if-not #'listp test-expr))
+                 (mapcar (lambda (test-expr) (reverse (remove-if-not #'listp test-expr)))
                          (remove-if-not (lambda (expr) (eq 'test (car expr)))
                                         (reverse test-list)))))))))
 
