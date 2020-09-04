@@ -12,8 +12,8 @@ RUN sbcl --load quicklisp.lisp \
 # Copy over the test runner
 COPY bin/run.lisp bin/run.sh bin/
 # Pull down the tooling connector binary
-ADD https://github.com/exercism/local-tooling-webserver/releases/latest/download/exercism_local_tooling_webserver /usr/local/bin/
+ADD https://github.com/exercism/tooling-webserver/releases/latest/download/tooling_webserver /usr/local/bin/
 # Make the binary executable
-RUN chmod +x /usr/local/bin/exercism_local_tooling_webserver
+RUN chmod +x /usr/local/bin/tooling_webserver
 # Set test runner as the ENTRYPOINT
 ENTRYPOINT ["sh", "bin/run.sh"]
