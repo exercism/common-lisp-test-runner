@@ -22,6 +22,7 @@ WORKDIR /opt/test-runner
 
 # Copy over the representer code
 COPY --from=build /opt/test-runner/test-runner bin/
+COPY --from=build /opt/test-runner/.cache/common-lisp/ .cache/common-lisp/
 COPY bin/run.sh bin/
 
 # Pull down the tooling connector binary and make it executable.
