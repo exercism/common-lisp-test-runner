@@ -20,7 +20,7 @@ RUN sbcl --script ./build/build.lisp
 FROM alpine
 WORKDIR /opt/test-runner
 
-# Copy over the representer code
+# Copy over the test-runner code
 COPY --from=build /opt/test-runner/test-runner bin/
 COPY --from=build /opt/test-runner/.cache/common-lisp/ .cache/common-lisp/
 COPY bin/run.sh bin/
