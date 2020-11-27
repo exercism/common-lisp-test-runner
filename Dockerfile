@@ -25,9 +25,5 @@ COPY --from=build /opt/test-runner/test-runner bin/
 COPY --from=build /opt/test-runner/.cache/common-lisp/ .cache/common-lisp/
 COPY bin/run.sh bin/
 
-# Pull down the tooling connector binary and make it executable.
-ADD https://github.com/exercism/tooling-webserver/releases/latest/download/tooling_webserver /usr/local/bin
-RUN chmod +x /usr/local/bin/tooling_webserver
-
 # Set test runner as the ENTRYPOINT
 ENTRYPOINT ["sh", "bin/run.sh"]
