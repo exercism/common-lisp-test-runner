@@ -1,11 +1,10 @@
 ;;;; Exercism Common Lisp Test Runner
 
-(defpackage #:test-runner
-  (:use #:cl)
+(defpackage test-runner
+  (:use :cl)
   (:export :test-runner))
 
-(in-package #:test-runner)
-
+(in-package :test-runner)
 
 ;;; Set some parameters
 (defvar *max-output-chars* 500)
@@ -13,29 +12,51 @@
 
 ;;; Load and run tests
 (defun get-test-results (slug src-path out-path)
-  (let ((test-slug (format nil "~A-test" slug))
-        (*default-pathname-defaults* (truename src-path)))
-    (load test-slug)
-    (uiop:symbol-call (string-upcase test-slug) :run-tests nil)))
+  (let* ((*default-pathname-defaults* (truename src-path))
+         (test-slug (format nil "~A-test" slug))
+         (*package* (progn (load test-slug) (find-package (string-upcase test-slug))))
+         (test-forms (astonish:load-forms-from-file test-slug))
+         (test-macros (mapcar #'cadr (astonish:select-conses '(defmacro) test-forms)))
+         (tests (mapcar (lambda (x) (astonish:macroexpand-select test-macros x))
+                        (astonish:select-conses '(test) test-forms))))
+    (mapcan #'process-test tests)))
+
+(defun process-test (test)
+  (let* ((*test-code* (with-output-to-string (*standard-output*)
+                        (loop :for sexpr :in test :unless (atom sexpr)
+                              :do (fresh-line)
+                                  (write sexpr :pretty t :case :downcase))))
+         (5am:*test-dribble* nil)
+         (*standard-output* (make-string-output-stream))
+         (results (fiveam:run (eval test)))
+         (*test-output* (truncate-output (get-output-stream-string *standard-output*)))
+         (*test-progress* (cons 0 (length results))))
+    (declare (special *test-code* *test-output* *test-progress*))
+    (loop :for result :in results
+          :do (incf (car *test-progress*))
+          :collect (process-test-result result))))
 
 ;;; Methods for processing different test results
 (defmethod process-test-result ((result 5am::test-passed))
   (st-json:jso "name" (get-test-description result)
                "status" "pass"
                "message" :null
-               "output" (get-test-output result)))
+               "output" *test-output*
+               "test_code" *test-code*))
 
 (defmethod process-test-result ((result 5am::unexpected-test-failure))
   (st-json:jso "name" (get-test-description result)
                "status" "error"
                "message" (princ-to-string (5am::actual-condition result))
-               "output" :null))
+               "output" :null
+               "test_code" *test-code*))
 
 (defmethod process-test-result ((result 5am::test-failure))
   (st-json:jso "name" (get-test-description result)
                "status" "fail"
                "message" (5am::reason result)
-               "output" (get-test-output result)))
+               "output" *test-output*
+               "test_code" *test-code*))
 
 (defmethod process-test-result ((result 5am::test-skipped)))
 
@@ -44,12 +65,10 @@
   (let* ((test-case   (5am::test-case test-result))
          (description (5am::description test-case))
          (name        (string (5am::name test-case))))
-    (if (= (length description) 0) name description)))
-
-(defun get-test-output (test-result)
-  (truncate-output
-    (with-output-to-string (*standard-output*)
-      (eval (5am::test-expr test-result)))))
+    (format nil "~A (~A/~A)"
+            (if (string= description "") name description)
+            (car *test-progress*)
+            (cdr *test-progress*))))
 
 (defun truncate-output (output)
   (if (> (length output) *max-output-chars*)
@@ -59,14 +78,16 @@
 
 ;;; Generate final report
 (defun results-status (results)
-  (cond ((null results) "error")
-        ((5am:results-status results) "pass")
-        (t "fail")))
+  (every (lambda (res) (string= "pass" (st-json:getjso "status" res)))
+         results))
 
-(defun generate-report (results &optional error)
-  (st-json:jso "status" (results-status results)
-               "message" (unless results (princ-to-string error))
-               "tests" (remove nil (mapcar #'process-test-result results))))
+(defmethod generate-report ((err error))
+  (st-json:jso "status" "error"
+               "message" (princ-to-string err)))
+
+(defmethod generate-report ((results list))
+  (st-json:jso "status" (if (results-status results) "pass" "fail")
+               "tests" results))
 
 ;;; Invoke the test-runner
 (defun test-runner ()
@@ -74,6 +95,7 @@
     (let ((results-file (merge-pathnames (truename out-path) *results-file*)))
       (with-open-file (fs results-file :direction :output :if-exists :supersede)
         (st-json:write-json
-         (handler-case (generate-report (get-test-results slug src-path out-path))
-           (error (c) (generate-report nil c)))
+         (generate-report
+          (handler-case (get-test-results slug src-path out-path)
+            (error (c) c)))
          fs)))))
