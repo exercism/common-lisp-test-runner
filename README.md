@@ -1,6 +1,6 @@
 # Common Lisp Test Runner
 
-(_c.f._ For full details and up to date documentation on automated test running for Exercism see the [Automated Test Runner][automated-test-runner] repository.)
+(_c.f._ For full details and up to date documentation on automated test running for Exercism see [the v3-docs here][automated-test-runner].)
 
 ## Interface
 
@@ -25,4 +25,4 @@ For example:
 Will run the tests from the provided directory and put the `results.json` file in the current directory.
 
 
-[automated-test-runner]: http://github.com/exercism/automated-test-runner
+[automated-test-runner]: https://github.com/exercism/v3-docs/tree/master/anatomy/track-tooling/test-runners
