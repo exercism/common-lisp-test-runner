@@ -1,6 +1,6 @@
 # Common Lisp Test Runner
 
-(_c.f._ For full details and up to date documentation on automated test running for Exercism see [the v3-docs here][automated-test-runner].)
+(_c.f._ For full details and up to date documentation on automated test running for Exercism see [the docs here][automated-test-runner].)
 
 ## Interface
 
