@@ -7,4 +7,5 @@
 
   :pathname "test-runner"
   :serial t
-  :components ((:file "test-runner")))
+  :components ((:file "astonish")
+               (:file "test-runner" :depends-on ("astonish"))))
