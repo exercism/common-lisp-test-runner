@@ -3,7 +3,7 @@
 ;;;; eventually being used to test for implementation in the test-suites
 
 (defpackage astonish
-  (:use :cl)
+  (:use :cl :alexandria)
   (:export :load-forms-from-file :select-conses :macroexpand-select))
 (in-package :astonish)
 
@@ -36,7 +36,7 @@
 
 (defun map-inodes (function form)
   "Maps the given function over all the inner nodes of a tree"
-  (if (listp form)
+  (if (proper-list-p form)
       (funcall function (mapcar (lambda (n) (map-inodes function n)) form))
       form))
 
