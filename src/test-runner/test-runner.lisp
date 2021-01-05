@@ -82,11 +82,13 @@
          results))
 
 (defmethod generate-report ((err error))
-  (st-json:jso "status" "error"
+  (st-json:jso "version" 2
+               "status" "error"
                "message" (princ-to-string err)))
 
 (defmethod generate-report ((results list))
-  (st-json:jso "status" (if (results-status results) "pass" "fail")
+  (st-json:jso "version" 2
+               "status" (if (results-status results) "pass" "fail")
                "tests" results))
 
 ;;; Invoke the test-runner
