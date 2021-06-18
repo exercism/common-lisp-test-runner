@@ -23,6 +23,7 @@ WORKDIR /opt/test-runner
 
 # Copy over the test-runner code
 COPY --from=build /opt/test-runner/bin/ bin/
+COPY --from=build /opt/test-runner/.cache/common-lisp/ .cache/common-lisp/
 COPY bin/run.sh bin/
 
 # Set test-runner script as the ENTRYPOINT
