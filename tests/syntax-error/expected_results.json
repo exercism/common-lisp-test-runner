@@ -1,0 +1,1 @@
+{"version":2,"status":"error","message":"READ error during LOAD:\n\n  end of file on #<SB-INT:FORM-TRACKING-STREAM for \"file /opt/test-runner/tests/syntax-error/syntax-error.lisp\" {1001A86233}>\n\n  (in form starting at line: 1, column: 0, position: 0)"}

@@ -1,3 +1,4 @@
 *.json
 *.fasl
 *~
+!tests/*/expected_results.json
