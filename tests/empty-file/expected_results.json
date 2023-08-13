@@ -1,0 +1,1 @@
+{"version":2,"status":"error","message":"READ error during LOAD:\n\n  Package EMPTY-FILE does not exist.\n\n    Line: 18, Column: 51\n\n    Stream: #<SB-INT:FORM-TRACKING-STREAM for \"file /opt/test-runner/tests/empty-file/empty-file-test.lisp\" {100095BBA3}>"}
