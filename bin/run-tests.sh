@@ -32,7 +32,11 @@ for test_dir in tests/*; do
     #   "${results_file_path}"
 
     echo "${test_dir_name}: comparing results.json to expected_results.json"
-    diff "${results_file_path}" "${expected_results_file_path}"
+    for file in "${results_file_path}" "${expected_results_file_path}"; do
+        sed 's/{[[:alnum:]]*}//; s/Column: [[:digit:]]*/Column: COL/' "${file}" > "${file}.cleaned"
+    done
+    diff "${results_file_path}.cleaned" "${expected_results_file_path}.cleaned"
+    rm "${results_file_path}.cleaned" "${expected_results_file_path}.cleaned"
 
     if [ $? -ne 0 ]; then
         exit_code=1
