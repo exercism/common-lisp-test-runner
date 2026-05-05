@@ -1,4 +1,4 @@
-FROM clfoundation/sbcl:2.1.5-alpine3.13 AS build
+FROM clfoundation/sbcl:2.6.1-alpine3.22 AS build
 RUN apk --no-cache add curl
 
 # Set working directory
@@ -18,7 +18,7 @@ COPY src quicklisp/local-projects/test-runner
 RUN sbcl --script ./build/build.lisp
 
 # Build the runtime image
-FROM alpine:3.13
+FROM alpine:3.22
 WORKDIR /opt/test-runner
 
 # Copy over the test-runner code
